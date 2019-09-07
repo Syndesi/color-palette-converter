@@ -28,7 +28,7 @@ public class ListCommand extends Command {
 		Color[] c = new Color[0];
 		try {
 			c = fg.importFile(args[0]);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		for (int i = 0; i < c.length; i++) {
@@ -37,7 +37,7 @@ public class ListCommand extends Command {
 		try {
 			fg.exportFile("./src/assets/Material-Design.copy.gpl", c);
 			System.out.println("palette successfully exported");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		

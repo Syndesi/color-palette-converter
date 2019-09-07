@@ -1,5 +1,9 @@
 package dev.syndesi.colorconverter.runtime.command;
 
+import dev.syndesi.colorconverter.Color;
+import dev.syndesi.colorconverter.parser.file.FileParser;
+import dev.syndesi.colorconverter.parser.file.FormatGimp;
+import dev.syndesi.colorconverter.parser.file.FormatLibreOffice;
 import dev.syndesi.colorconverter.runtime.Command;
 
 public class ConvertFileCommand extends Command {
@@ -17,8 +21,20 @@ public class ConvertFileCommand extends Command {
 		this.examples.add("cc convertFile gimp \"path/to/gimpPalette.xml\" libreoffice \"path/to/output.xml\"");
 	}
 
-	public void run(String[] args) {
-		System.out.println("ConvertFileCommand is running :D");
+	public void run(String[] args) throws Exception {
+		FileParser flo = new FormatLibreOffice();
+		Color[] c = flo.importFile("./src/assets/standard.soc");
+		FileParser fg = new FormatGimp();
+		for (int i = 0; i < c.length; i++) {
+			System.out.println("rgb(" + (c[i].getRed() & 0xff) + ", " + (c[i].getGreen() & 0xff) + ", " + (c[i].getBlue() & 0xff) + "): " + c[i].getTitle());
+		}
+//		try {
+//			fg.exportFile("./src/assets/standard.gpl", c);
+//			System.out.println("palette successfully exported");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		flo.exportFile("./src/assets/standard.copy.soc", c);
 	}
 
 }
