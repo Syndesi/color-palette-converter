@@ -7,10 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
-
 import dev.syndesi.colorconverter.Color;
+
 
 public class FormatGimp extends FileParser {
 
@@ -20,13 +19,10 @@ public class FormatGimp extends FileParser {
 		boolean isHeader = true;
 		for (int i = 0; i < s.size(); i++) {
 			String line = s.get(i);
-			//System.out.println(line);
-
 			if (line.length() == 0) {
 				// don't parse empty lines
 				continue;
 			}
-			
 			if (line.matches("^[\\s\\d]{3}\\s+[\\s\\d]{3}\\s+[\\s\\d]{3}\\s+.*$")) {
 				try {
 					Color c = this.parseLine(line);
