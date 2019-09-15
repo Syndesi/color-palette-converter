@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
+
 import dev.syndesi.colorconverter.runtime.command.ConvertColorCommand;
 import dev.syndesi.colorconverter.runtime.command.ConvertFileCommand;
 import dev.syndesi.colorconverter.runtime.command.HelpCommand;
 import dev.syndesi.colorconverter.runtime.command.ListCommand;
+import dev.syndesi.colorconverter.runtime.command.DemoCommand;
 
 public class CommandChooser {
 
@@ -27,6 +30,7 @@ public class CommandChooser {
 		this.commands.add(new ListCommand());
 		this.commands.add(new ConvertFileCommand());
 		this.commands.add(new ConvertColorCommand());
+		this.commands.add(new DemoCommand());
 	}
 	
 	@SuppressWarnings("resource")
@@ -58,8 +62,14 @@ public class CommandChooser {
 				break;
 			}
 		}
+		// print header
+		System.out.println(StringUtils.rightPad("", 80, "-"));
+		System.out.println(" " + commandToBeRun.getCommand());
+		System.out.println(StringUtils.rightPad("", 80, "-"));
 		// run the command
 		commandToBeRun.run(this.arguments);
+		// print end message
+		System.out.println(StringUtils.rightPad("", 80, "-"));
 	}
 	
 }

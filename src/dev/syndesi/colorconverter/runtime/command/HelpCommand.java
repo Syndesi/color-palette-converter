@@ -27,9 +27,6 @@ public class HelpCommand extends Command {
 	}
 
 	public void run (String[] args) throws Exception {
-		System.out.println(StringUtils.rightPad("", 80, "-"));
-		System.out.println(" Help");
-		System.out.println(StringUtils.rightPad("", 80, "-"));
 		if (this.commands == null) {
 			throw new Exception("No commands found");
 		}

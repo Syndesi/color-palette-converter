@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.9/commons-lang3-3.9.jar"/>
+	<classpathentry kind="lib" path="lib/catalano/Catalano.Image.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
