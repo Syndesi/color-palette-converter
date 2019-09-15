@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/commons-text-1.7/commons-text-1.7.jar">
+	<classpathentry kind="lib" path="dependencies/catalano/Catalano.Image.jar"/>
+	<classpathentry kind="lib" path="dependencies/commons-lang3-3.9/commons-lang3-3.9.jar"/>
+	<classpathentry kind="lib" path="dependencies/commons-text-1.7/commons-text-1.7.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/soeren/Documents/Programme/java%20libraries/commons-text-1.7/commons-text-1.7-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.9/commons-lang3-3.9.jar"/>
-	<classpathentry kind="lib" path="lib/catalano/Catalano.Image.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
