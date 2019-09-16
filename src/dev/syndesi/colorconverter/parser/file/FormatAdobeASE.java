@@ -19,8 +19,6 @@ public class FormatAdobeASE extends FileParser {
 	 */
 	public Color[] importFile (String path) throws IOException {
 		List<Color> colors = new ArrayList<Color>();
-		
-		
 		RandomAccessFile raf = new RandomAccessFile(path, "r");
 		
 		int signatur = raf.readInt();
@@ -33,6 +31,10 @@ public class FormatAdobeASE extends FileParser {
 			int type = raf.readShort();
 			int colorLength = raf.readInt();
 			long nextColorPosition = raf.getFilePointer() + colorLength;
+			if (type != 1) {
+				// go to the next color if the current block is not a color
+				continue;
+			}
 			int nameLength = raf.readShort();
 			String colorName = "";
 			for (int j = 0; j < nameLength -1; j++) {
@@ -43,7 +45,6 @@ public class FormatAdobeASE extends FileParser {
 			for (int j = 0; j < 4; j++) {
 				colorspace += (char) raf.readByte(); // character is stored inside one byte
 			}
-			System.out.println("color");
 			int colortype = 0;
 			Color c = new Color();
 			switch (colorspace) {
@@ -80,8 +81,28 @@ public class FormatAdobeASE extends FileParser {
 					colors.add(c);
 					break;
 				case "CMYK":
+					float cmyk_c = raf.readFloat() * 100.0f;
+					float cmyk_m = raf.readFloat() * 100.0f;
+					float cmyk_y = raf.readFloat() * 100.0f;
+					float cmyk_k = raf.readFloat() * 100.0f;
+					int[] cmyk = ColorConverter.CMYKtoRGB(cmyk_c, cmyk_m, cmyk_y, cmyk_k);
+					c.setRed(cmyk[0]);
+					c.setGreen(cmyk[1]);
+					c.setBlue(cmyk[2]);
+					c.setTitle(colorName);
+					colors.add(c);
 					break;
 				case "Gray":
+					int gray = (int) (raf.readFloat() * 256.0f);
+					if (gray > 255) {
+						gray = 255;
+					}
+					colortype = raf.readShort();
+					c.setRed(gray);
+					c.setGreen(gray);
+					c.setBlue(gray);
+					c.setTitle(colorName);
+					colors.add(c);
 					break;
 				default:
 					break;
