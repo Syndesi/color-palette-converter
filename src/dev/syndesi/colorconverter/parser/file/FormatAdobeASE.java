@@ -3,20 +3,32 @@ package dev.syndesi.colorconverter.parser.file;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import Catalano.Imaging.Tools.ColorConverter;
 import Catalano.Imaging.Tools.Illuminant;
+
 import dev.syndesi.colorconverter.Color;
 
 
+/**
+ * Class for converting between the internally used color-array and the .ase-fileformat used by Adobe.
+ * @see <a href="https://www.cyotek.com/blog/reading-adobe-swatch-exchange-ase-files-using-csharp">Reading Adobe Swatch Exchange (ase) files using C#</a>
+ * @see <a href="http://www.nomodes.com/aco.html">Adobe Photoshop Color File Format</a>
+ * @author Syndesi
+ * @since 1.0
+ */
 public class FormatAdobeASE extends FileParser {
 
 	/**
-	 * @see https://www.cyotek.com/blog/reading-adobe-swatch-exchange-ase-files-using-csharp
-	 * @see http://www.nomodes.com/aco.html
+	 * Imports a single .ase file and tries to extract its colors.
+	 * @param path The path to the file
+	 * @return Returns a list of colors
 	 */
 	public Color[] importFile (String path) {
 		List<Color> colors = new ArrayList<Color>();
@@ -45,12 +57,15 @@ public class FormatAdobeASE extends FileParser {
 				int nameLength = raf.readShort();
 				String colorName = "";
 				for (int j = 0; j < nameLength -1; j++) {
-					colorName += raf.readChar(); // character is stored inside two bytes
+					// character is stored inside two bytes
+					colorName += raf.readChar();
 				}
-				raf.skipBytes(2); // null byte
+				// null byte
+				raf.skipBytes(2);
 				String colorspace = "";
 				for (int j = 0; j < 4; j++) {
-					colorspace += (char) raf.readByte(); // character is stored inside one byte
+					// character is stored inside one byte
+					colorspace += (char) raf.readByte();
 				}
 				int colortype = 0;
 				Color c = new Color();
@@ -60,6 +75,7 @@ public class FormatAdobeASE extends FileParser {
 						float lab_a = raf.readFloat();
 						float lab_b = raf.readFloat();
 						colortype = raf.readShort();
+						// while the LAB-colors don't have a standard-whitepoint, Adobe usually uses D65
 						int[] rgb = ColorConverter.LABtoRGB(lab_l, lab_a, lab_b, Illuminant.CIE2.D65);
 						c.setRed(rgb[0]);
 						c.setGreen(rgb[1]);
@@ -71,6 +87,7 @@ public class FormatAdobeASE extends FileParser {
 						int rgb_r = (int) (raf.readFloat() * 256.0f);
 						int rgb_g = (int) (raf.readFloat() * 256.0f);
 						int rgb_b = (int) (raf.readFloat() * 256.0f);
+						// don't let the byte overflow
 						if (rgb_r > 255) {
 							rgb_r = 255;
 						}
@@ -101,6 +118,7 @@ public class FormatAdobeASE extends FileParser {
 						break;
 					case "Gray":
 						int gray = (int) (raf.readFloat() * 256.0f);
+						// don't let the byte overflow
 						if (gray > 255) {
 							gray = 255;
 						}
@@ -114,7 +132,8 @@ public class FormatAdobeASE extends FileParser {
 					default:
 						break;
 				}
-				raf.seek(nextColorPosition); // jump to the next color
+				// jump to the next color because after the current position can be another x bytes with metadata
+				raf.seek(nextColorPosition);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -129,7 +148,14 @@ public class FormatAdobeASE extends FileParser {
 		}
 		return colors.toArray(new Color[colors.size()]);
 	}
-	
+
+	/**
+	 * Exports an array of colors into a .ase file.
+	 * @param path the path to the new file, existing files will be overwritten
+	 * @param palette the array of colors which should be included in the final file
+	 * @throws IOException on io errors
+	 * @deprecated While this method can generate valid ase-files, its colors aren't identical (usually 50% darker)
+	 */
 	public void exportFile (String path, Color[] palette) throws IOException {
 		RandomAccessFile raf = null;
 		try {

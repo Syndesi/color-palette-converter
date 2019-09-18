@@ -6,29 +6,39 @@ import java.util.List;
 import javax.xml.parsers.*;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import java.io.*;
-
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import dev.syndesi.colorconverter.Color;
 
-
+/**
+ * Class for converting between the internally used color-array and the .soc-fileformat used by Libre Office.
+ * @author Syndesi
+ * @since 1.0
+ */
 public class FormatLibreOffice extends FileParser {
 
+	/**
+	 * Imports a single .soc file and tries to extract its colors.
+	 * @param path The path to the file
+	 * @return Returns a list of colors
+	 * @throws IOException on IO errors
+	 * @throws ParserConfigurationException on XML errors
+	 * @throws SAXException on XML errors
+	 */
 	public Color[] importFile (String path) throws IOException, ParserConfigurationException, SAXException {
 		List<Color> colors = new ArrayList<Color>();
+		// parse the XML-document
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(new File(path));
 		Element root = doc.getDocumentElement();
+		// iterate over all color-nodes
 		NodeList colorNode = root.getElementsByTagName("draw:color");
 		for (int i = 0; i < colorNode.getLength(); i++) {
 			try {
@@ -47,7 +57,13 @@ public class FormatLibreOffice extends FileParser {
 		}
 		return colors.toArray(new Color[colors.size()]);
 	}
-	
+
+	/**
+	 * Exports an array of colors into a .soc file.
+	 * @param pathString the path to the new file, existing files will be overwritten
+	 * @param palette the array of colors which should be included in the final file
+	 * @throws Exception on errors (io/xml exceptions etc.)
+	 */
 	public void exportFile (String pathString, Color[] palette) throws Exception {
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
