@@ -10,11 +10,18 @@ import org.apache.commons.text.WordUtils;
 
 import dev.syndesi.colorconverter.runtime.Command;
 
-
+/**
+ * Command for formating the other commands documentation and printing them.
+ * @author Syndesi
+ * @since 1.0
+ */
 public class HelpCommand extends Command {
 	
 	protected List<Command> commands;
 
+	/**
+	 * Initializes its own documentation
+	 */
 	public HelpCommand () {
 		super();
 		this.command = "help";
@@ -22,10 +29,18 @@ public class HelpCommand extends Command {
 		this.commands = null;
 	}
 	
+	/**
+	 * Sets the commands for which the documentation should be built.
+	 * @param commands the commands which should be analyzed
+	 */
 	public void setCommands (List<Command> commands) {
 		this.commands = commands;
 	}
 
+	/**
+	 * Executes this command
+	 * @param args required by its parent, usually empty/ignored
+	 */
 	public void run (String[] args) throws Exception {
 		if (this.commands == null) {
 			throw new Exception("No commands found");
@@ -57,8 +72,13 @@ public class HelpCommand extends Command {
 		}
 	}
 	
+	/**
+	 * Formats the arguments of a command into a pretty string.
+	 * @param command the command which should be formated
+	 * @return pretty formated string
+	 */
 	@SuppressWarnings("rawtypes")
-	public String[] getCommandArg (Command command) {
+	protected String[] getCommandArg (Command command) {
 	    Iterator<Entry<String, String>> it = command.getArguments().entrySet().iterator();
 	    String[] out = new String[0];
 	    while (it.hasNext()) {
@@ -69,7 +89,7 @@ public class HelpCommand extends Command {
 					(String) pair.getValue()
 				}, new int[] {
 					15, // length of the argument-column
-					50 // length of the help-column
+					50  // length of the help-column
 				}));
 	        //System.out.println(pair.getKey() + " = " + pair.getValue());
 	        it.remove(); // avoids a ConcurrentModificationException
@@ -77,7 +97,12 @@ public class HelpCommand extends Command {
 	    return out;
 	}
 	
-	public String getCommandExamples (Command command) {
+	/**
+	 * Formats the examples of a command into a pretty string.
+	 * @param command the command which should be formated
+	 * @return pretty formated string
+	 */
+	protected String getCommandExamples (Command command) {
 		String out = "";
 		List<String> examples = command.getExamples();
 		for (int i = 0; i < examples.size(); i++) {
@@ -87,12 +112,12 @@ public class HelpCommand extends Command {
 	}
 	
 	/**
-	 * Wraps lines after `length`-characters and after newline.
+	 * Helper function. Wraps lines after `length`-characters and after newline.
 	 * @param s The input string
 	 * @param length The maximum allowed length for the lines
 	 * @return String[] Array of wrapped lines
 	 */
-	public String[] wrap (String s, int length) {
+	protected String[] wrap (String s, int length) {
 		String[] tmp = s.split("\\r?\\n");
 		String[] out = new String[0];
 		for (int i = 0; i < tmp.length; i++) {
@@ -105,15 +130,15 @@ public class HelpCommand extends Command {
 	}
 	
 	/**
-	 * Creates something similar to a table. Example:
+	 * Helper function. Creates something similar to a table. Example:
 	 * combineWrap(String[]{"a", "b\nc"}, int[]{10, 5}) would return:
 	 * a         b    
 	 *           c    
 	 * @param s Array of strings, each one will get its own "column"
 	 * @param l Length of the column
-	 * @return
+	 * @return formated string
 	 */
-	public String[] combineWrap (String[] s, int[] l) {
+	protected String[] combineWrap (String[] s, int[] l) {
 		String[][] tmp = new String[s.length][];
 		int maxLines = 0;
 		for (int i = 0; i < s.length; i++) {
