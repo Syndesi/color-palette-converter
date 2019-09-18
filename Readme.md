@@ -1,75 +1,43 @@
 # Programmierprojekt
 
-### help
+[Link to JavaDoc](https://syndesi.github.io/color-palette-converter/)
 
-Lists all available commands, their arguments and help messages.
-Note: In the later examples the name of the program file will be
-shortened to cc (color converter).
+## How to use
 
-No arguments required
+The generated library `dist/cc.jar` can be started in two ways:
 
-No examples found
+### Direct way
 
-
-### list
-
-Displays all colors of a file
-
-Arguments:
-
-- filepath: The path to the file which should be read
-
-Examples:
+In this mode the program is started with all required parameters and will execute them without further questions.
 
 ```bash
-cc list "path/to/palette.ext"
+java -jar dist/cc.jar help
+#...
 ```
 
+### Interactive way
 
-### convertFile
-
-Converts a file into another fileformat.
-Both input- and export-fileformats must be specified because some
-extensions can store different formats, e.g. .xml can be used by
-MS Office, Libre Office etc.
-
-Arguments:
-
-- inputPath: The path to the input file
-- outputPath: The path to the output file
-- inputFormat: The fileformat of the input file
-- outputFormat: The fileformat of the output file
-
-Examples:
+In this mode the program is started without any parameters at all. It will then ask for its parameters or will print the programs help-text.
 
 ```bash
-cc convertFile gimp "path/to/gimpPalette.xml" libreoffice "path/to/output.xml"
+java -jar dist/cc.jar
+#No arguments specified.
+#Please enter command manually: help
+#...
 ```
 
+## Example files
 
-### convertColor
+Example files can be found in `src/assets`. Additional files are usually included in the following folders:
 
-Converts a single color into the specified format.
-Available formats are: hex, rgb, cmyk.
+- `C:\Program Files\LibreOffice\share\palette` (only `*.soc` can be interpreted)
+- `C:\Program Files\GIMP 2\share\gimp\2.0\palettes`
+- `C:\Program Files\Adobe\Adobe Photoshop CC 2019\Presets\Color Swatches` (`*.aco` files need to be converted into `*.ase` inside Adobe Photoshop)
 
-Arguments:
+## Dependencies
 
-- color: The color which should be converted
-- inputFormat: The format of the specified color
-- outputFormat: The format of the converted color
+This project uses multiple dependencies:
 
-Examples:
-
-```bash
-cc convertColor hex #123456 rgb
-cc convertColor hex #123456 cmyk
-```
-
-
-### demo
-
-demo command, for testing stuff while developing
-
-No arguments required
-
-No examples found
+- [Apache's Commons Lang](https://commons.apache.org/proper/commons-lang/) for [string](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html) and [array](https://commons.apache.org/proper/commons-lang/javadocs/api-release/org/apache/commons/lang3/ArrayUtils.html) functions
+- [Apache's Commons Text](https://commons.apache.org/proper/commons-text/) for [text formatting functions](https://commons.apache.org/proper/commons-text/javadocs/api-release/org/apache/commons/text/WordUtils.html)
+- [Catalano Framework](https://github.com/DiegoCatalano/Catalano-Framework) for its [color converter](https://github.com/DiegoCatalano/Catalano-Framework/blob/master/Catalano.Image/src/Catalano/Imaging/Tools/ColorConverter.java)
