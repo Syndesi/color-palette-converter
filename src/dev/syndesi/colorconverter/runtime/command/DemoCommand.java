@@ -29,6 +29,8 @@ public class DemoCommand extends Command {
 			System.out.println("rgb(" + (c[i].getRed() & 0xff) + ", " + (c[i].getGreen() & 0xff) + ", " + (c[i].getBlue() & 0xff) + "): " + c[i].getTitle());
 		}
 		
+		ase.exportFile("./src/assets/all color spaces.export.ase", c);
+		
 		//int[] rgb = ColorConverter.LABtoRGB(97.2f, -5.0f, -5.0f, Illuminant.CIE2.D65);
 		//System.out.println("rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")");
 		
