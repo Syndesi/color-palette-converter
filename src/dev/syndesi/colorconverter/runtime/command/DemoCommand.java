@@ -1,14 +1,8 @@
 package dev.syndesi.colorconverter.runtime.command;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import Catalano.Imaging.Tools.ColorConverter;
-import Catalano.Imaging.Tools.Illuminant;
 import dev.syndesi.colorconverter.Color;
-import dev.syndesi.colorconverter.parser.file.FileParser;
 import dev.syndesi.colorconverter.parser.file.FormatAdobeASE;
-import dev.syndesi.colorconverter.parser.file.FormatGimp;
 import dev.syndesi.colorconverter.runtime.Command;
 
 
@@ -20,6 +14,7 @@ public class DemoCommand extends Command {
 		this.help = "demo command, for testing stuff while developing";
 	}
 
+	@SuppressWarnings("deprecation")
 	public void run(String[] args) throws IOException {
 		// CIE2_D65
 		

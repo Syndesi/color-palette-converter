@@ -1,8 +1,8 @@
 package dev.syndesi.colorconverter.runtime.command;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import dev.syndesi.colorconverter.Color;
 import dev.syndesi.colorconverter.parser.file.FileParser;
 import dev.syndesi.colorconverter.parser.file.FormatGimp;

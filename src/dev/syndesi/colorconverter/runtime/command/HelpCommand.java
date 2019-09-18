@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
 import dev.syndesi.colorconverter.runtime.Command;
+
 
 public class HelpCommand extends Command {
 	
@@ -77,7 +77,6 @@ public class HelpCommand extends Command {
 	    return out;
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public String getCommandExamples (Command command) {
 		String out = "";
 		List<String> examples = command.getExamples();
@@ -88,7 +87,7 @@ public class HelpCommand extends Command {
 	}
 	
 	/**
-	 * Wraps lines after `lenght`-characters and after newline.
+	 * Wraps lines after `length`-characters and after newline.
 	 * @param s The input string
 	 * @param length The maximum allowed length for the lines
 	 * @return String[] Array of wrapped lines

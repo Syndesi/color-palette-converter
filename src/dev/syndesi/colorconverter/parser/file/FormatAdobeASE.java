@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import Catalano.Imaging.Tools.ColorConverter;
 import Catalano.Imaging.Tools.Illuminant;
 
@@ -37,12 +32,15 @@ public class FormatAdobeASE extends FileParser {
 			raf = new RandomAccessFile(path, "r");
 			String signature = "";
 			for (int j = 0; j < 4; j++) {
-				signature += (char) raf.readByte(); // character is stored inside one byte
+				// character is stored inside one byte
+				signature += (char) raf.readByte();
 			}
 			if (!signature.equals("ASEF")) {
 				throw new IOException("The file does not have the required signature.");
 			}
+			@SuppressWarnings("unused")
 			int versionMajor = raf.readShort();
+			@SuppressWarnings("unused")
 			int versionMinor = raf.readShort();
 			int colorsInFile = raf.readInt();
 			for (int i = 0; i < colorsInFile; i++) {
@@ -67,6 +65,7 @@ public class FormatAdobeASE extends FileParser {
 					// character is stored inside one byte
 					colorspace += (char) raf.readByte();
 				}
+				@SuppressWarnings("unused")
 				int colortype = 0;
 				Color c = new Color();
 				switch (colorspace) {

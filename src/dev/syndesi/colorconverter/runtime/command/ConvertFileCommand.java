@@ -24,6 +24,7 @@ public class ConvertFileCommand extends Command {
 	public void run(String[] args) throws Exception {
 		FileParser flo = new FormatLibreOffice();
 		Color[] c = flo.importFile("./src/assets/standard.soc");
+		@SuppressWarnings("unused")
 		FileParser fg = new FormatGimp();
 		for (int i = 0; i < c.length; i++) {
 			System.out.println("rgb(" + (c[i].getRed() & 0xff) + ", " + (c[i].getGreen() & 0xff) + ", " + (c[i].getBlue() & 0xff) + "): " + c[i].getTitle());
