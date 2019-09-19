@@ -3,10 +3,15 @@ package dev.syndesi.colorconverter.runtime.command;
 import java.io.IOException;
 import dev.syndesi.colorconverter.Color;
 import dev.syndesi.colorconverter.parser.file.FormatAdobeASE;
-import dev.syndesi.colorconverter.runtime.Command;
+import dev.syndesi.colorconverter.runtime.CommandGeneric;
 
-
-public class DemoCommand extends Command {
+/**
+ * Internal class used for testing, not used inside production.
+ * @deprecated
+ * @author Syndesi
+ *
+ */
+public class DemoCommand extends CommandGeneric {
 
 	public DemoCommand() {
 		super();
@@ -14,7 +19,6 @@ public class DemoCommand extends Command {
 		this.help = "demo command, for testing stuff while developing";
 	}
 
-	@SuppressWarnings("deprecation")
 	public void run(String[] args) throws IOException {
 		// CIE2_D65
 		

@@ -18,7 +18,7 @@ import dev.syndesi.colorconverter.Color;
  * @author Syndesi
  * @since 1.0
  */
-public class FormatAdobeASE extends FileParser {
+public class FormatAdobeASE extends FormatGeneric {
 
 	/**
 	 * Imports a single .ase file and tries to extract its colors.

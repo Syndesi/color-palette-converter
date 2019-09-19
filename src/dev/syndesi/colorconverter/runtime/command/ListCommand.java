@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import Catalano.Imaging.Tools.ColorConverter;
 
 import dev.syndesi.colorconverter.Color;
-import dev.syndesi.colorconverter.parser.file.FileReader;
-import dev.syndesi.colorconverter.runtime.Command;
+import dev.syndesi.colorconverter.parser.file.Parser;
+import dev.syndesi.colorconverter.runtime.CommandGeneric;
 
 
 /**
@@ -15,7 +15,7 @@ import dev.syndesi.colorconverter.runtime.Command;
  * @author Syndesi
  * @since 1.0
  */
-public class ListCommand extends Command {
+public class ListCommand extends CommandGeneric {
 
 	/**
 	 * Initializes its own documentation
@@ -24,8 +24,8 @@ public class ListCommand extends Command {
 		super();
 		this.command = "list";
 		this.help = "Displays all colors of a file";
-		this.arguments.put("filepath", "The path to the file which should be read");
-		this.examples.add("cc list \"path/to/palette.ext\"");
+		this.arguments.put("inputPath", "The path to the file which should be read");
+		this.examples.add("program list \"src/assets/Farbfelder Photoshop.ase\"");
 	}
 
 	/**
@@ -40,8 +40,8 @@ public class ListCommand extends Command {
 		}
 		// initialize the fileReader and import the colors of the file
 		String path = args[0];
-		FileReader fr = new FileReader();
-		Color[] colors = fr.importFile(path);
+		Parser parser = new Parser();
+		Color[] colors = parser.importFile(path);
 		// print all colors
 		for (int i = 0; i < colors.length; i++) {
 			System.out.println(this.printColorLine(colors[i]));

@@ -8,7 +8,7 @@ import dev.syndesi.colorconverter.Color;
  * @author Syndesi
  * @since 1.0
  */
-public class FileParser {
+public class FormatGeneric {
 
 	/**
 	 * Parses a file and returns its colors.

@@ -8,11 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
-import dev.syndesi.colorconverter.runtime.command.ConvertColorCommand;
-import dev.syndesi.colorconverter.runtime.command.ConvertFileCommand;
+import dev.syndesi.colorconverter.runtime.command.ConvertCommand;
 import dev.syndesi.colorconverter.runtime.command.HelpCommand;
 import dev.syndesi.colorconverter.runtime.command.ListCommand;
-import dev.syndesi.colorconverter.runtime.command.DemoCommand;
 
 
 /**
@@ -22,7 +20,7 @@ import dev.syndesi.colorconverter.runtime.command.DemoCommand;
  */
 public class CommandChooser {
 
-	private List<Command> commands;
+	private List<CommandGeneric> commands;
 	private String command;
 	private String[] arguments;
 	
@@ -30,7 +28,7 @@ public class CommandChooser {
 	 * Initializes its variables
 	 */
 	public CommandChooser () {
-		this.commands = new ArrayList<Command>();
+		this.commands = new ArrayList<CommandGeneric>();
 		// add help command which requires access to all other commands
 		// the help command should be by default the first command in the list
 		HelpCommand hc = new HelpCommand();
@@ -38,9 +36,8 @@ public class CommandChooser {
 		this.commands.add(hc);
 		// add normal commands
 		this.commands.add(new ListCommand());
-		this.commands.add(new ConvertFileCommand());
-		this.commands.add(new ConvertColorCommand());
-		this.commands.add(new DemoCommand());
+		this.commands.add(new ConvertCommand());
+		//this.commands.add(new DemoCommand());
 	}
 	
 	/**
@@ -63,7 +60,7 @@ public class CommandChooser {
 			}
 			this.arguments = argumentList.toArray(new String[argumentList.size()]);
 	    	// if nothing was entered then assume that the help-command was wanted
-		    if (this.arguments.length == 1 && this.arguments[0].isEmpty()) {
+		    if (this.arguments.length == 0) {
 		    	this.arguments = new String[] {"help"};
 		    }
 		    // split input-string into command & arguments
@@ -75,9 +72,9 @@ public class CommandChooser {
 		    this.arguments = Arrays.copyOfRange(args, 1, args.length);
 		}
 		// find required command or use the help-command
-		Command commandToBeRun = this.commands.get(0);
+		CommandGeneric commandToBeRun = this.commands.get(0);
 		for (int i = 0; i < this.commands.size(); i++) {
-			Command command = this.commands.get(i);
+			CommandGeneric command = this.commands.get(i);
 			if (command.getCommand().equals(this.command)) {
 				commandToBeRun = command;
 				break;
@@ -88,7 +85,11 @@ public class CommandChooser {
 		System.out.println(" " + commandToBeRun.getCommand());
 		System.out.println(StringUtils.rightPad("", 80, "-"));
 		// run the command
-		commandToBeRun.run(this.arguments);
+		try {		
+			commandToBeRun.run(this.arguments);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		// print end message
 		System.out.println(StringUtils.rightPad("", 80, "-"));
 	}

@@ -15,7 +15,7 @@ import dev.syndesi.colorconverter.Color;
  * @author Syndesi
  * @since 1.0
  */
-public class FormatGimp extends FileParser {
+public class FormatGimp extends FormatGeneric {
 
 	/**
 	 * Imports a single .gpl file and tries to extract its colors.

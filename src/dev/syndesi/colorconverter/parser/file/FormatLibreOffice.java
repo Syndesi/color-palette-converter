@@ -21,7 +21,7 @@ import dev.syndesi.colorconverter.Color;
  * @author Syndesi
  * @since 1.0
  */
-public class FormatLibreOffice extends FileParser {
+public class FormatLibreOffice extends FormatGeneric {
 
 	/**
 	 * Imports a single .soc file and tries to extract its colors.

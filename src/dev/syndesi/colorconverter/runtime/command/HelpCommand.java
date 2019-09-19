@@ -8,16 +8,16 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 
-import dev.syndesi.colorconverter.runtime.Command;
+import dev.syndesi.colorconverter.runtime.CommandGeneric;
 
 /**
  * Command for formating the other commands documentation and printing them.
  * @author Syndesi
  * @since 1.0
  */
-public class HelpCommand extends Command {
+public class HelpCommand extends CommandGeneric {
 	
-	protected List<Command> commands;
+	protected List<CommandGeneric> commands;
 
 	/**
 	 * Initializes its own documentation
@@ -33,7 +33,7 @@ public class HelpCommand extends Command {
 	 * Sets the commands for which the documentation should be built.
 	 * @param commands the commands which should be analyzed
 	 */
-	public void setCommands (List<Command> commands) {
+	public void setCommands (List<CommandGeneric> commands) {
 		this.commands = commands;
 	}
 
@@ -46,7 +46,7 @@ public class HelpCommand extends Command {
 			throw new Exception("No commands found");
 		}
 		for (int i = 0; i < this.commands.size(); i++) {
-			Command c = this.commands.get(i);
+			CommandGeneric c = this.commands.get(i);
 			String helpColumn = c.getHelp();
 			if (c.getArguments().size() > 0) {
 				helpColumn += "\n\nArguments:\n" + String.join("\n", this.getCommandArg(c));
@@ -78,7 +78,7 @@ public class HelpCommand extends Command {
 	 * @return pretty formated string
 	 */
 	@SuppressWarnings("rawtypes")
-	protected String[] getCommandArg (Command command) {
+	protected String[] getCommandArg (CommandGeneric command) {
 	    Iterator<Entry<String, String>> it = command.getArguments().entrySet().iterator();
 	    String[] out = new String[0];
 	    while (it.hasNext()) {
@@ -102,7 +102,7 @@ public class HelpCommand extends Command {
 	 * @param command the command which should be formated
 	 * @return pretty formated string
 	 */
-	protected String getCommandExamples (Command command) {
+	protected String getCommandExamples (CommandGeneric command) {
 		String out = "";
 		List<String> examples = command.getExamples();
 		for (int i = 0; i < examples.size(); i++) {

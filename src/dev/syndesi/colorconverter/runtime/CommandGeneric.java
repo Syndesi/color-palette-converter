@@ -11,7 +11,7 @@ import java.util.Map;
  * @author Syndesi
  * @since 1.0
  */
-public class Command {
+public class CommandGeneric {
 
 	protected String command;
 	protected Map<String, String> arguments;
@@ -21,7 +21,7 @@ public class Command {
 	/**
 	 * Initializes this object.
 	 */
-	public Command () {
+	public CommandGeneric () {
 		this.command = "undefined_command";
 		this.arguments = new HashMap<>();
 		this.examples = new ArrayList<String>();
