@@ -5,6 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Generic class for commands.
+ * @author Syndesi
+ * @since 1.0
+ */
 public class Command {
 
 	protected String command;
@@ -12,6 +18,9 @@ public class Command {
 	protected List<String> examples;
 	protected String help;
 	
+	/**
+	 * Initializes this object.
+	 */
 	public Command () {
 		this.command = "undefined_command";
 		this.arguments = new HashMap<>();
@@ -20,37 +29,37 @@ public class Command {
 	}
 	
 	/**
-	 * @return String The unique command name
+	 * @return The unique command name
 	 */
 	public String getCommand () {
 		return this.command;
 	}
 	
 	/**
-	 * @return Map<String, String> Returns a map of all arguments and their explanation
+	 * @return Returns a map of all arguments and their explanation
 	 */
 	public Map<String, String> getArguments () {
 		return this.arguments;
 	}
 	
 	/**
-	 * @return List<String> Returns a list of all examples
+	 * @return Returns a list of all examples
 	 */
 	public List<String> getExamples () {
 		return this.examples;
 	}
 	
 	/**
-	 * @return String Returns an array of strings which should be no longer than 80-120 chars, can include examples etc.
+	 * @return Returns an array of strings which should be no longer than 80-120 chars, can include examples etc.
 	 */
 	public String getHelp () {
 		return this.help;
 	}
 	
 	/**
-	 * Starts the command
+	 * Starts the command. Should be overwritten by its children.
 	 * @param args Parameters from the command line
-	 * @throws Exception 
+	 * @throws Exception on errors
 	 */
 	public void run(String[] args) throws Exception {
 		return;

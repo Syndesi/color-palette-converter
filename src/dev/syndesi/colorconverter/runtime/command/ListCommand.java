@@ -56,9 +56,9 @@ public class ListCommand extends Command {
 	protected String printColorLine (Color color) {
 		String out = "";
 		// add title
-		out += (StringUtils.rightPad(color.getTitle(), 20, " ")).substring(0, 20);
+		out += (StringUtils.rightPad(color.getTitle(), 19, " ")).substring(0, 19);
 		// add rgb
-		out += StringUtils.rightPad("rgb(" + (color.getRed() & 0xff) + ", " + (color.getGreen() & 0xff) + ", " + (color.getBlue() & 0xff) + ")", 19, "  ");
+		out += StringUtils.rightPad("rgb(" + (color.getRed() & 0xff) + ", " + (color.getGreen() & 0xff) + ", " + (color.getBlue() & 0xff) + ")", 20, " ");
 		// add rgb-hex
 		out += "#" + (String.format("%02x", color.getRed() & 0xff) + String.format("%02x", color.getGreen() & 0xff) + String.format("%02x", color.getBlue() & 0xff)).toUpperCase() + "  ";
 		// add cmyk (more lines required due to conversions etc.)
