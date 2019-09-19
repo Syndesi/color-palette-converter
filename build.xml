@@ -7,7 +7,7 @@
     <property name="dir.workspace" value="${dir.buildfile}/.."/>
     <property name="dir.jarfile" value="${dir.buildfile}/dist"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/cc.jar">
+        <jar destfile="${dir.jarfile}/program.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
                 <attribute name="Rsrc-Main-Class" value="dev.syndesi.colorconverter.runtime.Main"/>

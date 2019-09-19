@@ -4,14 +4,14 @@
 
 ## How to use
 
-The generated library `dist/cc.jar` can be started in two ways:
+The generated library `dist/program.jar` can be started in two ways:
 
 ### Direct way
 
 In this mode the program is started with all required parameters and will execute them without further questions.
 
 ```bash
-java -jar dist/cc.jar help
+java -jar dist/program.jar help
 #...
 ```
 
@@ -20,7 +20,7 @@ java -jar dist/cc.jar help
 In this mode the program is started without any parameters at all. It will then ask for its parameters or will print the programs help-text.
 
 ```bash
-java -jar dist/cc.jar
+java -jar dist/program.jar
 #No arguments specified.
 #Please enter command manually: help
 #...
