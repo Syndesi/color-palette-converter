@@ -11,9 +11,9 @@ import dev.syndesi.colorconverter.runtime.CommandGeneric;
  * @author Syndesi
  *
  */
-public class DemoCommand extends CommandGeneric {
+public class CommandDemo extends CommandGeneric {
 
-	public DemoCommand() {
+	public CommandDemo() {
 		super();
 		this.command = "demo";
 		this.help = "demo command, for testing stuff while developing";

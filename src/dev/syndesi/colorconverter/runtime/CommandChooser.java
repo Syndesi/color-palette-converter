@@ -8,9 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
-import dev.syndesi.colorconverter.runtime.command.ConvertCommand;
-import dev.syndesi.colorconverter.runtime.command.HelpCommand;
-import dev.syndesi.colorconverter.runtime.command.ListCommand;
+import dev.syndesi.colorconverter.runtime.command.CommandConvert;
+import dev.syndesi.colorconverter.runtime.command.CommandHelp;
+import dev.syndesi.colorconverter.runtime.command.CommandList;
 
 
 /**
@@ -31,13 +31,12 @@ public class CommandChooser {
 		this.commands = new ArrayList<CommandGeneric>();
 		// add help command which requires access to all other commands
 		// the help command should be by default the first command in the list
-		HelpCommand hc = new HelpCommand();
-		hc.setCommands(this.commands);
-		this.commands.add(hc);
+		CommandHelp ch = new CommandHelp();
+		ch.setCommands(this.commands);
+		this.commands.add(ch);
 		// add normal commands
-		this.commands.add(new ListCommand());
-		this.commands.add(new ConvertCommand());
-		//this.commands.add(new DemoCommand());
+		this.commands.add(new CommandList());
+		this.commands.add(new CommandConvert());
 	}
 	
 	/**

@@ -15,12 +15,12 @@ import dev.syndesi.colorconverter.runtime.CommandGeneric;
  * @author Syndesi
  * @since 1.0
  */
-public class ListCommand extends CommandGeneric {
+public class CommandList extends CommandGeneric {
 
 	/**
 	 * Initializes its own documentation
 	 */
-	public ListCommand() {
+	public CommandList() {
 		super();
 		this.command = "list";
 		this.help = "Displays all colors of a file";

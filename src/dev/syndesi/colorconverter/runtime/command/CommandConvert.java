@@ -10,12 +10,12 @@ import dev.syndesi.colorconverter.runtime.CommandGeneric;
  * @author Syndesi
  * @since 1.0
  */
-public class ConvertCommand extends CommandGeneric {
+public class CommandConvert extends CommandGeneric {
 
 	/**
 	 * Initializes its own documentation
 	 */
-	public ConvertCommand() {
+	public CommandConvert() {
 		super();
 		this.command = "convert";
 		this.help = "Converts a file into another fileformat. The required parsers are determined by the extensions of the paths.";

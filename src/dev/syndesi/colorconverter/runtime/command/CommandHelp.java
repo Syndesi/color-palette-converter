@@ -15,14 +15,14 @@ import dev.syndesi.colorconverter.runtime.CommandGeneric;
  * @author Syndesi
  * @since 1.0
  */
-public class HelpCommand extends CommandGeneric {
+public class CommandHelp extends CommandGeneric {
 	
 	protected List<CommandGeneric> commands;
 
 	/**
 	 * Initializes its own documentation
 	 */
-	public HelpCommand () {
+	public CommandHelp () {
 		super();
 		this.command = "help";
 		this.help = "Lists all available commands, their arguments and help messages.\nNote: In the later examples the name of the program file will be replaced by just 'program'.";
